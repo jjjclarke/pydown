@@ -1,10 +1,11 @@
-from utils import convert_formatting, convert_heading, convert_links, convert_code_blocks
+from utils import convert_formatting, convert_heading, convert_links, convert_code_blocks, convert_lists
 
 def markdown_to_html(markdown_text):
     html_lines = []
 
     lines = markdown_text.split("\n")
     lines = convert_code_blocks(lines)
+    lines = convert_lists(lines)
 
     for line in lines:
         html_line = convert_heading(line)

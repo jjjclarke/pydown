@@ -38,3 +38,34 @@ def convert_code_blocks(lines):
                 html_lines.append(convert_formatting(convert_links(line)))
 
     return html_lines
+
+def convert_lists(lines):
+    in_list = False
+    in_ordered_list = False
+    list_type = ""
+    html_lines = []
+
+    for line in lines:
+        if re.match(r'^\s*[\*\-\+]\s+', line):
+            if not in_list:
+                html_lines.append("<ul>")
+                in_list = True
+                list_type = "ul"
+            html_lines.append(f"<li>{line.strip()[2:]}</li>")
+        elif re.match(r'^\s*\d+\.\s+', line):
+            if not in_ordered_list:
+                html_lines.append("<ol>")
+                in_ordered_list = True
+                list_type = "ol"
+            html_lines.append(f"<li>{line.strip()[3:]}</li>")
+        else:
+            if in_list or in_ordered_list:
+                html_lines.append(f"</{list_type}>")
+                in_list = False
+                in_ordered_list = False
+            html_lines.append(line)
+    
+    if in_list or in_ordered_list:
+        html_lines.append(f"</{list_type}>")
+
+    return html_lines
