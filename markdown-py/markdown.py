@@ -8,7 +8,7 @@ def main(input_file_name, output_file_name):
     write_html_file(output_file_name, html_text)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 2:
         print("")
     else:
-        main(sys.argv[1], sys.argv[2])
+        main(sys.argv[1], "md-py-output.html")
