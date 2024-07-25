@@ -1,4 +1,7 @@
+import os
 from utils import convert_formatting, convert_heading, convert_links, convert_code_blocks, convert_lists
+
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 
 def markdown_to_html(markdown_text):
     html_lines = []
@@ -18,4 +21,12 @@ def markdown_to_html(markdown_text):
                 html_line = line
         html_lines.append(html_line)
         
-    return "\n".join(html_lines)
+    return wrap_around_template("\n".join(html_lines))
+
+def load_template(file_path):
+    with open(os.path.join(template_dir, file_path), 'r') as file:
+        return file.read()
+
+def wrap_around_template(content):
+    html_template = load_template("index.html")
+    return html_template.replace("{content}", content)
