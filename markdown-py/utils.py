@@ -69,3 +69,7 @@ def convert_lists(lines):
         html_lines.append(f"</{list_type}>")
 
     return html_lines
+
+def convert_images(line):
+    # the blind leading the blind ( i don't know if this will work )
+    return re.sub(r'!\[(.*?)\]\((.*?)\)', r'<img alt="\1" src="\2" />', line)

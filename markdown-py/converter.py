@@ -1,5 +1,12 @@
 import os
-from utils import convert_formatting, convert_heading, convert_links, convert_code_blocks, convert_lists
+from utils import (
+    convert_formatting,
+    convert_heading,
+    convert_links,
+    convert_code_blocks,
+    convert_lists,
+    convert_images    
+)
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 
@@ -16,6 +23,7 @@ def markdown_to_html(markdown_text):
             if not line.startswith("<code><pre>") and not line.startswith("</pre></code>"):
                 line = convert_formatting(line)
                 line = convert_links(line)
+                line = convert_images(line)
                 html_line = f'<p>{line}</p>' if line.strip() else ''
             else:
                 html_line = line
