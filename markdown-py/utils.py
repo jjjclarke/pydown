@@ -73,3 +73,10 @@ def convert_lists(lines):
 def convert_images(line):
     # the blind leading the blind ( i don't know if this will work )
     return re.sub(r'!\[(.*?)\]\((.*?)\)', r'<img alt="\1" src="\2" />', line)
+
+def convert_blockquotes(line):
+    m = re.match(r'>\s*(.*)', line)
+    
+    if m:
+        return f'<blockquote>{m.group(1)}</blockquotes>'
+    return line
