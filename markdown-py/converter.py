@@ -17,6 +17,7 @@ def markdown_to_html(markdown_text):
     lines = markdown_text.split("\n")
     lines = convert_code_blocks(lines)
     lines = convert_lists(lines)
+    lines = convert_blockquotes(lines)
 
     for line in lines:
         html_line = convert_heading(line)
@@ -25,7 +26,7 @@ def markdown_to_html(markdown_text):
                 line = convert_formatting(line)
                 line = convert_links(line)
                 line = convert_images(line)
-                line = convert_blockquotes(line)
+                # line = convert_blockquotes(line)
                 html_line = f'<p>{line}</p>' if line.strip() else ''
             else:
                 html_line = line

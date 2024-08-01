@@ -74,9 +74,23 @@ def convert_images(line):
     # the blind leading the blind ( i don't know if this will work )
     return re.sub(r'!\[(.*?)\]\((.*?)\)', r'<img alt="\1" src="\2" />', line)
 
-def convert_blockquotes(line):
-    m = re.match(r'>\s*(.*)', line)
-    
-    if m:
-        return f'<blockquote>{m.group(1)}</blockquotes>'
-    return line
+def convert_blockquotes(lines):
+    in_blockquotes = False
+    html_lines = []
+
+    for line in lines:
+        if line.startswith('>'):
+            if not in_blockquotes:
+                html_lines.append('<blockquote>')
+                in_blockquotes = True
+            html_lines.append(line[1:].strip())
+        else:
+            if in_blockquotes:
+                html_lines.append('</blockquote>')
+                in_blockquotes = False
+            html_lines.append(line)
+
+    if in_blockquotes:
+        html_lines.append('</blockquote>')
+
+    return html_lines
