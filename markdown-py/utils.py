@@ -94,3 +94,8 @@ def convert_blockquotes(lines):
         html_lines.append('</blockquote>')
 
     return html_lines
+
+def convert_horizontal_rules(line):
+    if re.match(r'^\s*([-*_]){3,}\s*$', line):
+        return '<hr />'
+    return line

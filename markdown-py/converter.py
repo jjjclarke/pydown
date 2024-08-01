@@ -6,7 +6,8 @@ from utils import (
     convert_code_blocks,
     convert_lists,
     convert_images,
-    convert_blockquotes  
+    convert_blockquotes,
+    convert_horizontal_rules
 )
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
@@ -26,7 +27,7 @@ def markdown_to_html(markdown_text):
                 line = convert_formatting(line)
                 line = convert_links(line)
                 line = convert_images(line)
-                # line = convert_blockquotes(line)
+                line = convert_horizontal_rules(line)
                 html_line = f'<p>{line}</p>' if line.strip() else ''
             else:
                 html_line = line
